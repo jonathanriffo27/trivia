@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import navbar %}
+{% block navbar %}
+	{{ navbar('/questions') }}
+{% endblock %}
+{% block main %}
+    <div class="container p-5">
+        <h2>Nueva pregunta</h2><br>
+        <div class="row">
+	    	<div class="col-12">
+                <form action="/question" method="post">
+                    <div class="row">      
+                        <br><br><br>
+                        <div class="row">
+                            <div class="col-2">
+                                <label class="form-label fs-5" >Pregunta</label>
+                            </div>
+                            <div class="col-10">
+                                <textarea class="form-control" name="pregunta" rows="6" required></textarea><br><br>
+                            </div>
+                            <div class="col-2">
+                                <label class="form-label fs-5" >Respuesta correcta:</label>
+                            </div>
+                            <div class="col-10">
+                                <input class="form-control" name="correcta" rows="6" required></input>
+                                <br>
+                            </div>
+                            <div class="col-2">
+                                <label class="form-label fs-5" >Respuesta erronea 1:</label>
+                            </div>
+                            <div class="col-10">
+                                <input class="form-control" name="erronea1" rows="6" required></input>
+                            </div>
+                            <div class="col-2">
+                                <label class="form-label fs-5" >Respuesta erronea 2:</label>
+                            </div>
+                            <div class="col-10">
+                                <input class="form-control" name="erronea2" rows="6" required></input>
+                            </div>
+                        </div>
+
+                        <div class="col-4 offset-8">
+                            <br><br>
+                            <a href="/" class="btn btn-primary">Cancelar</a>
+                            <button class="btn btn-primary">Agregar pregunta</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

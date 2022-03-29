@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% from "macros.html" import navbar %}
+{% block main %}
+{{ navbar('/') }}
+    <div class="container p-4">
+        <h3 class="">Hola {{user.name}}!</h3>
+        <p class="fs-6">Elije una respuesta por cada una de las preguntas y envia la trivia una vez terminada.<br> Buena Suerte !</p>
+        <form action="/play/{{user.id}}" method="post">
+            {%for pregunta in preguntas %}
+                <div class="container border p-3 mb-3">
+                    <p class="fw-bold fs-6">{{pregunta.question}}</p>
+                    {% for respuesta in pregunta.respuestas %}
+                        <input type="radio" name="respuesta{{pregunta.id}}" value="{{respuesta}}">
+                        <label for="checkrespuesta">{{respuesta}}</label><br>
+                    {%endfor %}
+                </div>
+            {% endfor %}
+            <div class="container float-end p-2">
+                <button class="btn btn-primary float-end m-2" type="submit">Enviar</button>
+                <a class="btn btn-primary float-end m-2" href="">Cancelar</a>
+            </div>
+        </form>
+    </div>
+ {% endblock %}

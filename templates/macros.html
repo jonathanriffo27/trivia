@@ -1,7 +1,7 @@
 {% macro navbar (active) %}
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">Trivia</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -11,11 +11,11 @@
             <a class="nav-link {% if active == '/' %}active{% endif %}" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if active == '/seguidos' %}active{% endif %}" href="/seguidos">Seguidos</a>
+            <a class="nav-link {% if active == '/questions' %}active{% endif %}" href="/question">Agregar pregunta</a>
           </li>
         </ul>
         <div class="d-flex">
-          <a href="/logout" class="btn btn-outline-success" type="submit">Logout</a>
+          <a href="/logout" class="btn btn-outline-light" type="submit">Logout</a>
         </div>
       </div>
     </div>

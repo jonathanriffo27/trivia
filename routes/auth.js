@@ -1,6 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
-const { get_user, create_user } = require('../db.js')
+const flash = require('connect-flash')
+const { get_user, create_user, get_users } = require('../db.js')
 
 const router = express.Router()
 
@@ -34,8 +35,10 @@ router.post('/login', async (req, res) => {
   res.redirect('/')
 })
 
-router.get('/register', (req, res) => {
+router.get('/register', async (req, res) => {
   const errors = req.flash('errors')
+  
+  console.log()
   res.render('register.html', { errors })
 })
 
@@ -54,22 +57,27 @@ router.post('/register', async (req, res) => {
   
   // 3. Validar que no exista otro usuario con el mismo correo
   const user = await get_user(email)
+  const users = await get_users()
+  let es_admin = false
   if (user) {
     req.flash('errors', 'Este email ya se encuentra registrado')
     return res.redirect('/register')
   }
-
+  if(users.length == 0){
+    es_admin = true
+  }
+  console.log(es_admin)
   // 4. Finalmente podemos guardar el nuevo usuario en base de datos
   const password_encrypt = await bcrypt.hash(password, 10)
-  await create_user(name, email, password_encrypt)
+  await create_user(name, email, password_encrypt, es_admin)
 
   // 5. y en la sesión
   req.session.user = {
     name, email, password
   }
-  console.log('session', req.session);
+  // console.log('session', req.session);
 
-  res.redirect('/')
+  res.redirect('/login')
 })
 
 router.get('/logout', (req, res) => {
